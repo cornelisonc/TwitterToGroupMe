@@ -2,10 +2,12 @@
 
 // GroupMe Vars:
 // Your access token can be found here: https://dev.groupme.com/bots
-$AccessToken                ='youraccesstoken';
+$access_token                ='youraccesstoken';
 
 // Your group id can be found by running this curl script: curl https://api.groupme.com/v3/groups?token=youraccesstoken
-$GroupID                    ='yourgroupid';
+$group_id                    ='yourgroupid';
+
+$bot_id                      ='yourbotid';
 
 // These all come from your Twitter app:
 $oauth_access_token         = 'yourtwitteroauthaccesstoken';
