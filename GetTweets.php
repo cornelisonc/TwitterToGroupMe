@@ -20,25 +20,29 @@ $tweet = $twitter->setGetfield($getfield)
 				 ->performRequest();
 
 $obj = json_decode($tweet);
+
 $tweet_text = ($obj['0']->text);
+$tweet_time = ($obj['0']->created_at);
 
-echo $tweet_text;
+$five_minutes_ago = strtotime('5 minutes ago');
 
-// Start curl posting things
-$ch = curl_init();
-$post = json_encode(array(
-	'bot_id' => $bot_id,
-	'text'	 => $tweet_text
-	)
-);
+if ($tweet_time > $five_minutes_ago) {
+	// Start curl posting things
+	$ch = curl_init();
+	$post = json_encode(array(
+		'bot_id' => $bot_id,
+		'text'	 => $tweet_text
+		)
+	);
 
-$arr = array();
-array_push($arr, 'Content-Type: application/json; charset=utf-8');
+	$arr = array();
+	array_push($arr, 'Content-Type: application/json; charset=utf-8');
 
-curl_setopt($ch, CURLOPT_HTTPHEADER, $arr);
-curl_setopt($ch, CURLOPT_URL, 'https://api.groupme.com/v3/bots/post');
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $arr);
+	curl_setopt($ch, CURLOPT_URL, 'https://api.groupme.com/v3/bots/post');
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
-curl_exec($ch);
-curl_close($ch);
+	curl_exec($ch);
+	curl_close($ch);
+}
